@@ -31,3 +31,5 @@ export class Story extends Base {
         && !!this.map.long;
   }
 }
+
+
