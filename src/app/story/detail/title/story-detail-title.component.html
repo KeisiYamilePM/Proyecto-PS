@@ -1,0 +1,14 @@
+<h1 *ngIf="!isEditing()">{{story.title}}</h1>
+<div class="title-container" *ngIf="isEditing()">
+  <md-input-container>
+    <input
+      class="title-input"
+      type="text"
+      placeholder="Title"
+      [value]="newTitle !== undefined ? newTitle : story.title || ''"
+      [disabled]="!isActivelyEditing()"
+      (keyup)="titleChange($event)"
+      mdInput
+      required />
+  </md-input-container>
+</div>

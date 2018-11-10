@@ -1,0 +1,103 @@
+<app-journey-detail-cast
+  [stories]="stories"
+  [owner]="owner"
+  *ngIf="(castServer | async) && stories && owner">
+</app-journey-detail-cast>
+
+<div
+  class="content__banner"
+  [style.backgroundImage]="newCover64 || 'url(' + journey.coverURL + ')'"
+  [class.active]="editState > 0"
+  (click)="executeCoverInput()">
+  <div class="banner__action-buttons">
+    <a class="fa fa-external-link neat" [href]="journey.coverURL" *ngIf="journey.coverURL && editState === 0" target="_blank"></a>
+    <i class="fa fa-camera" *ngIf="editState > 0"></i>
+  </div>
+  <a
+    href="javascript:void(0)"
+    class="fa fa-arrow-left banner__back"
+    [routerLink]="['/journeys']"
+    [mdTooltip]="'Go back to journeys'">
+  </a>
+</div>
+
+<input
+  type="file"
+  class="file-input"
+  accept="image/x-png,image/gif,image/jpeg"
+  (change)="coverChange($event)"
+  #coverInput />
+
+<div class="avatar-container">
+  <div
+    class="avatar"
+    [style.backgroundImage]="'url(' + owner?.photoURL + ')'"
+    [mdTooltip]="owner?.displayName"
+    [mdTooltipPosition]="'below'"
+    [routerLink]="['/users/' + owner?.$key]">
+  </div>
+</div>
+
+<div class="page journey-detail-page">
+  <div class="container">
+    <div class="container__head-buttons">
+      <h1 *ngIf="editState === 0">{{journey.title}}</h1>
+      <md-input-container *ngIf="editState > 0">
+        <input
+          class="title-input"
+          type="text"
+          placeholder="Title"
+          [value]="newTitle !== undefined ? newTitle : journey.title || ''"
+          [disabled]="editState !== 1"
+          (keyup)="titleChange($event)"
+          mdInput
+          required />
+      </md-input-container>
+
+      <div class="buttons">
+        <ng-container *ngIf="editState === 0 && isSignedUserTheOwner()">
+          <a md-button (click)="toggleEdit()" *hideItBootstrap="['xs']">Edit journey</a>
+          <a md-button (click)="toggleNewStory($event)" *hideItBootstrap="['xs']">Add story</a>
+        </ng-container>
+        <ng-container *ngIf="editState > 0">
+          <a md-button (click)="cancelEdit()">Cancel</a>
+          <a md-button (click)="saveEdit()">Save</a>
+        </ng-container>
+        <a class="menu-button" md-button [mdMenuTriggerFor]="detailMenu">
+          <i class="fa fa-ellipsis-v"></i>
+        </a>
+        <md-menu #detailMenu="mdMenu">
+          <ng-container *ngIf="editState === 0">
+            <a md-menu-item (click)="toggleEdit()" *showItBootstrap="['xs']">Edit journey</a>
+            <a md-menu-item (click)="toggleNewStory($event)" *showItBootstrap="['xs']">Add story</a>
+          </ng-container>
+          <a md-menu-item (click)="delete()" *ngIf="isSignedUserTheOwner()">Delete journey</a>
+          <a md-menu-item appPwNew>Physical Web</a>
+        </md-menu>
+      </div>
+    </div>
+
+    <div class="box story-new" [hidden]="!isNewStoryVisible">
+      <app-story-new
+        [journey]="journey"
+        (success)="toggleNewStory()"
+        (fail)="toggleNewStory()"
+        (cancel)="toggleNewStory()">
+      </app-story-new>
+    </div>
+
+    <div class="box">
+      <md-list-item class="story clickable" *ngFor="let story of stories" (click)="navigateToStory(story.$key)">
+        <div class="storyInfo">
+          <h3 md-line>
+            <a class="invisible" [routerLink]="getRouterStoryPath(story.$key)">{{story.title}}</a>
+          </h3>
+          <p md-line>{{story.dateStart | date}}</p>
+        </div>
+        <div class="storyCover" *ngIf="story?.coverURL">
+          <div [style.backgroundImage]="'url(' + story.coverURL + ')'"></div>
+        </div>
+      </md-list-item>
+    </div>
+  </div>
+</div>

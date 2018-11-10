@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+
+html,
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+* , *:before, *:after { 
+          box-sizing: border-box; 
+     -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+      -ms-box-sizing: border-box;
+}
+
+#loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 128px;
+  height: 128px;
+  background-image: url('/assets/favicon-256.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation-name: blur;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blur {
+  0% { filter: blur(1px) brightness(0.9); width: 100px; height: 100px; }
+  100% { filter: blur(0px) brightness(1); width: 128px; height: 128px; }
+  100% { filter: blur(0px) brightness(1); width: 128px; height: 128px; }
+}

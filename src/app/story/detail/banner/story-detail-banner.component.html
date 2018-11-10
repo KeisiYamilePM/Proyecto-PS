@@ -1,0 +1,23 @@
+<div
+  class="content__banner"
+  [style.backgroundImage]="newCover64 || 'url(' + story.coverURL + ')'"
+  [class.active]="isEditing()"
+  (click)="executeCoverInput()">
+  <div class="banner__action-buttons">
+    <a class="fa fa-external-link neat" [href]="story.coverURL" *ngIf="story.coverURL && !isEditing()" target="_blank"></a>
+    <i class="fa fa-camera" *ngIf="isEditing()"></i>
+  </div>
+  <a
+    href="javascript:void(0)"
+    class="fa fa-arrow-left banner__back"
+    [routerLink]="['/journeys/' + story.journey]"
+    [mdTooltip]="'Go back to journey'">
+  </a>
+</div>
+
+<input
+  type="file"
+  class="file-input"
+  accept="image/x-png,image/gif,image/jpeg"
+  (change)="coverChange($event)"
+  #coverInput />

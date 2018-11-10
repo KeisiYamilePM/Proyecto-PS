@@ -1,0 +1,19 @@
+<ng-container *ngIf="!(user | async)">
+  <div class="content">
+    <p>Sign in to start.</p>
+  </div>
+
+  <div class="buttons">
+    <button color="primary" md-raised-button md-dialog-close>Close</button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="(user | async)">
+  <div class="content">
+    <p>Set your beacon into configuration mode and press scan.</p>
+  </div>
+
+  <div class="buttons">
+    <button color="primary" md-raised-button (click)="scan()">Scan</button>
+  </div>
+</ng-container>

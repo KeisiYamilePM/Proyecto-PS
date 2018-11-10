@@ -1,0 +1,27 @@
+<div class="current-location-container">
+  <button
+    class="current-location"
+    md-button
+    [disabled]="!isActivelyEditing()"
+    (click)="currentLocation()"
+    *ngIf="isEditing()">
+    Current location
+  </button>
+</div>
+
+<div class="no-location one-line" *ngIf="!isEditing() && !story.map?.lat">
+  <i>No location has been set yet.</i>
+</div>
+
+<agm-map
+  [latitude]="story.map?.lat || DEFAULT_LAT"
+  [longitude]="story.map?.long || DEFAULT_LONG"
+  [zoom]="story.map?.lat ? 7 : 2"
+  (mapClick)="mapClick($event)"
+  *ngIf="isEditing() || story.map?.lat">
+  <agm-marker
+    [latitude]="newLat || story.map.lat"
+    [longitude]="newLong || story.map.long"
+    *ngIf="newLat || story.map?.lat">
+  </agm-marker>
+</agm-map>
