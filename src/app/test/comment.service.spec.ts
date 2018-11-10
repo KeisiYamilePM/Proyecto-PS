@@ -35,7 +35,7 @@ class MockIdService {
 
 class MockImageService { }
 
-describe('Servicio Historia', () => {
+describe('Servicio comentario', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
