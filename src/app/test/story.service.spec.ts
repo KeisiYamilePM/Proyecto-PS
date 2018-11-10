@@ -73,7 +73,7 @@ describe('Servicio Historia', () => {
     })
   );
 
-  it('La historia deberia contener una descripcion',
+  it('La historia deberia contener una description',
     inject([JourneyService, AngularFireDatabase],
            (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
       
@@ -83,15 +83,32 @@ describe('Servicio Historia', () => {
   );
 
 
-  it('La historia deberia contener una descripcion',
+  it('La historia deberia contener un coverURL',
     inject([JourneyService, AngularFireDatabase],
            (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
       
-      const story = new Story ( { description: 'Mi descripcion'  } );
-      expect(story.description.length).toBeGreaterThan(-1);
+      const story = new Story ( { coverURL: 'Direccion'  } );
+      expect(story.coverURL).not.toBe('');
     })
   );
 
+  it('La historia deberia guardar una foto',
+    inject([JourneyService, AngularFireDatabase],
+           (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
+      
+      const story = new Story ( { photos: { url: 'url', title:'title'}} );
+      expect(story.photos).not.toBe({});
+    })
+  );
+
+  it('La historia deberia guardar un video',
+    inject([JourneyService, AngularFireDatabase],
+           (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
+      
+      const story = new Story ( { videos: { id: 'url', type:'title'}} );
+      expect(story.videos).not.toBe({});
+    })
+  );
 
 
 });
