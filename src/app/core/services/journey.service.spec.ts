@@ -32,7 +32,7 @@ class MockIdService {
 
 class MockImageService { }
 
-describe('JourneyService', () => {
+describe('Servicio Journey (Viaje)', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -45,15 +45,25 @@ describe('JourneyService', () => {
     });
   });
 
-  it('creating a journey should not modify the original journey',
+  it('Comprobando que un Journey se creao correctamente',
     inject([JourneyService, AngularFireDatabase],
            (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
-      const journey = new Journey({ title: '🍬' });
+      const journey = new Journey({ title: 'Viaje a Mancora' });
       service.createJourney(journey).subscribe((newJourney: Journey) => {
         expect(newJourney).not.toBe(journey);
-        expect(newJourney.$key).toBe('🍭');
-        expect(newJourney.title).toBe('🍬');
+        expect(newJourney.title).toBe('Viaje a Mancora');
       });
     })
   );
+
+  it('Comprobando que el título de un Journey no puede ser vacío',
+    inject([JourneyService, AngularFireDatabase],
+           (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
+      const journey = new Journey({ title: 'Viaje a Mancora' });
+      //service.createJourney(journey).subscribe((newJourney: Journey) => {
+      expect(journey.title.length).toBeGreaterThan(0);
+      //});
+    })
+  );
+
 });
