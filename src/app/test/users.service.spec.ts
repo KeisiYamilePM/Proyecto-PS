@@ -4,11 +4,13 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { JourneyService } from '../core/services/journey.service';
+import { UserService } from '../core/services/user.service';
 import { StoryService } from '../core/services/story.service';
+
 import { FileService } from '../core/services/file.service';
 import { IdService } from '../core/services/id.service';
 import { Journey } from '../shared';
-import { Story } from '../shared';
+import { User } from '../shared';
 
 class MockAngularFireDatabase {
   read = false;
@@ -31,7 +33,7 @@ class MockIdService {
 
 class MockImageService { }
 
-describe('Servicio Usuarios', () => {
+describe('Servicio Usuario', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -43,5 +45,13 @@ describe('Servicio Usuarios', () => {
       ],
     });
   });
+
+  it('Comprobando que nombre de Usuario sea mayor a 0 en caracteres',
+    inject([JourneyService, AngularFireDatabase],
+           (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
+      const user = new User({ displayName : 'Keisi Yamile' });
+      expect(user.displayName.length).toBeGreaterThan(0);
+    })
+  );
 
 });
