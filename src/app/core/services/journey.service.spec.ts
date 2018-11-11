@@ -45,7 +45,7 @@ describe('Servicio Journey (Viaje)', () => {
     });
   });
 
-  it('Comprobando que un Journey se creao correctamente',
+  it('Comprobando que un Journey se creo correctamente',
     inject([JourneyService, AngularFireDatabase],
            (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
       const journey = new Journey({ title: 'Viaje a Mancora' });
@@ -62,6 +62,26 @@ describe('Servicio Journey (Viaje)', () => {
       const journey = new Journey({ title: 'Viaje a Mancora' });
       //service.createJourney(journey).subscribe((newJourney: Journey) => {
       expect(journey.title.length).toBeGreaterThan(0);
+      //});
+    })
+  );
+
+  it('Comprobando que existe un owner (propietario) para un Journey',
+    inject([JourneyService, AngularFireDatabase],
+           (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
+      const journey = new Journey({ owner: 'Gerson' });
+      //service.createJourney(journey).subscribe((newJourney: Journey) => {
+      expect(journey.owner.length).toBeGreaterThan(0);
+      //});
+    })
+  );
+
+  it('Comprobando que un Journey debe tener un coverURL',
+    inject([JourneyService, AngularFireDatabase],
+           (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
+      const journey = new Journey({ coverURL: 'Gerson' });
+      //service.createJourney(journey).subscribe((newJourney: Journey) => {
+      expect(journey.coverURL).not.toBe('');
       //});
     })
   );
