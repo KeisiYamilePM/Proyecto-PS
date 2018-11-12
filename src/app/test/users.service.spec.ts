@@ -54,4 +54,11 @@ describe('Servicio Usuario', () => {
     })
   );
 
+  it('Comprobando que el url de foto de Usuario sea diferente de vacio',
+    inject([JourneyService, AngularFireDatabase],
+           (service: JourneyService, angularFireDatabase: AngularFireDatabase) => {
+      const user = new User({ photoURL: 'https://scontent.flim5-4.fna.fbcdn.net/v/t1.0-9/36817627_1839414209414461_1928571707543519232_n.jpg?_nc_cat=106&_nc_ht=scontent.flim5-4.fna&oh=50239d7763cf2b23ff99923b47019f17&oe=5C7D4CE8' });
+      expect(user.photoURL).not.toBe('');
+    })
+  );
 });
